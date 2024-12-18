@@ -18,6 +18,23 @@ const Update = () => {
       setFormError("Please fill in all the fields correctly.");
       return;
     }
+
+    const { data, error } = await supabase
+      .from("smoothies")
+      .update({ title, method, rating })
+      .eq("id", id)
+      .select();
+
+    if (error) {
+      console.log(error);
+      setFormError("Please fill in all the fields correctly.");
+    }
+
+    if (data) {
+      console.log(data);
+      setFormError(null);
+      navigate("/");
+    }
   };
 
   useEffect(() => {
